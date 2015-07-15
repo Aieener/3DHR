@@ -26,23 +26,7 @@ Cells::Cells()
 	//initialize my cell
 	arr = new Square[1];
 	arr[0] = Square();
-}
 
-
-Cells::Cells(int X, int Y, int Z)
-{
-	N0 = X; // length
-	N1 = Y; // width
-    N2 = Z; // height
-    size = (N0)*(N1)*(N2);
-    arr = new Square[size];
-
-	//initialize my cell
-	for(int i = 0; i < size; i++)
-	{
-		arr[i] = Square();
-	}
-}
 
 /*
 *  Destructor
