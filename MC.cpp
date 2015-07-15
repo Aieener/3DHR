@@ -2,7 +2,7 @@
 * MC.cpp
 * Simulation of 3-D Hard-Rod By GCMC
 * Author: Yuding Ai
-* Date: 2015.07.05
+* Date: 2015.07.15
 * *************************** MC implementation ********************************
 * This simulation follows grand canonical ensemble.
 * In such simulation, Only Energy and N of particles fluctuate, we accomplish EF by
