@@ -1,0 +1,8 @@
+*.png
+*.dat
+*.txt
+*.o
+try
+runit
+Plots/
+.idea/
