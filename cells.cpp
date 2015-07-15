@@ -1,7 +1,7 @@
 // cells.cpp
-// 2-D lattice gas
+// 3-D Rods
 // Author: Yuding Ai
-// Date: 2015.06.05
+// Date: 2015.07.15
 
 #include <iostream>
 #include <fstream>
