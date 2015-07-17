@@ -5,7 +5,6 @@
 *.o
 try
 runit
-Plots/
 .idea/
 ||||||| merged common ancestors
 =======
