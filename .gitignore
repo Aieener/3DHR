@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 *.png
 *.dat
 *.txt
@@ -6,3 +7,34 @@ try
 runit
 Plots/
 .idea/
+||||||| merged common ancestors
+=======
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+>>>>>>> c230c1af1bb30f4e952db9c5126c0db4c94cd8ed
