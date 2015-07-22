@@ -1,6 +1,6 @@
 #Author: Yuding Ai
 #2015-July-15
-#Visualize 3D hard rod
+#Visualize 3D hard rod on each layer "Y,Z plane"
 
 from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
@@ -8,9 +8,11 @@ import numpy as np
 
 fig = plt.figure()
 
-# ================================ Draw Ver Rods ===========================
 ax = fig.add_subplot(111, projection='3d')
 a=0
+
+# ================================ Draw Ver Rods ===========================
+
 with open("3dplotv.txt", "r") as file:
     for line in file:
         a= a+1
@@ -26,9 +28,10 @@ with open("3dplotv.txt", "r") as file:
         wx = words[0]
         wy = words[1]
         wz = words[2]
-        xpos[i] = wx
-        ypos[i] = wy
-        zpos[i] = wz
+        if wx == "9":
+            xpos[i] = wx
+            ypos[i] = wy
+            zpos[i] = wz
         i = i+1
 
 dx = np.ones(a)
@@ -58,9 +61,10 @@ with open("3dploth.txt", "r") as file:
         wx = words[0]
         wy = words[1]
         wz = words[2]
-        xpos2[i] = wx
-        ypos2[i] = wy
-        zpos2[i] = wz
+        if wx == "9":
+            xpos2[i] = wx
+            ypos2[i] = wy
+            zpos2[i] = wz
         i = i+1
 
 dx2 = np.ones(a2)
@@ -90,9 +94,10 @@ with open("3dplotu.txt", "r") as file:
         wx = words[0]
         wy = words[1]
         wz = words[2]
-        xpos3[i] = wx
-        ypos3[i] = wy
-        zpos3[i] = wz
+        if wx == "9":
+            xpos3[i] = wx
+            ypos3[i] = wy
+            zpos3[i] = wz
         i = i+1
 
 dx3 = np.ones(a3)

@@ -447,7 +447,7 @@ void MC::Del(Cells &s,double &prob,double &probdv, double &probdh, double &probd
 					}
 					// remove the target rod from the deque Rodlist;
 					HRodlist.erase(HRodlist.begin() + indx);
-					nh--;// substract the # of hor rod;
+					nh--;// subtract the # of hor rod;
 					dh++;
 				}
 
@@ -590,10 +590,8 @@ void MC::MCRUN()
 		probav = min(1.0,aaccpv);
 		probau = min(1.0,aaccpu);
 
-		//******************* The sturcture of my deque list of HR ***********************
-		// the Vertical rod is always push in the front
-		// the Horizontal rod is always push in the back
-		// the index of last vertical rod in the list can be found by index[nv-1]
+		//******************* The structure of my deque list of HR ***********************
+        // I have 3 lists corresponding to my 3 species
 		// *******************************************************************************
 
         // ===========================Addition ===================================
