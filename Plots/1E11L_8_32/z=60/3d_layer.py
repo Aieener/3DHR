@@ -8,11 +8,10 @@ import numpy as np
 
 fig = plt.figure()
 
-ax = fig.add_subplot(111, projection='3d')
-a=0
+ax = fig.add_subplot(111,aspect='equal',projection='3d')
 
 # ================================ Draw Ver Rods ===========================
-
+a=0
 with open("3dplotv.txt", "r") as file:
     for line in file:
         a= a+1

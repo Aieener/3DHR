@@ -1,0 +1,368 @@
+#Author: Yuding Ai
+#2015-July-22
+#Visualize 3D hard rod
+
+from mpl_toolkits.mplot3d import Axes3D
+import matplotlib.pyplot as plt
+import matplotlib.patches as patches
+import numpy as np
+
+# Draw2D(plane,layer)
+# a function that draws the rods:
+# with 2 parameters:
+#     plane is a string index indicates with plane we want to draw: 
+#         x ------------- y,z plane
+#         y ------------- z,x plane
+#         z ------------- x,y plane
+#     layer is a string index that indicates which layer we want to see: 
+
+def Draw3D(plane,layer,K):
+	fig = plt.figure()
+	ax = fig.add_subplot(111, projection='3d')
+
+	if plane == "all":
+		#-------------------------Visualize the full picture -----------------------
+		# ================================ Draw Ver Rods ===========================
+		xpos = []
+		ypos = []
+		zpos = []
+
+		i = 0
+		with open("3dplotv.txt", "r") as file:
+		    for line in file:
+		        words = line.split()
+		        wx = float(words[0])
+		        wy = float(words[1])
+		        wz = float(words[2])
+		        xpos.append(wx);
+		        ypos.append(wy);
+		        zpos.append(wz);
+		        i = i+1
+
+		dx = np.ones(i)
+		dz = np.ones(i)
+		dy = np.ones(i)
+		for y in range(0,i):
+		    dy[y] = K;
+		if i != 0:
+		    ax.bar3d(xpos, ypos, zpos, dx, dy, dz, color='b',alpha=0.2)
+
+
+		# ================================ Draw Hor Rods ===========================
+		xpos2 = []
+		ypos2 = []
+		zpos2 = []
+
+		i = 0
+		with open("3dploth.txt", "r") as file:
+		    for line in file:
+		        words = line.split()
+		        wx = float(words[0])
+		        wy = float(words[1])
+		        wz = float(words[2])
+		        xpos2.append(wx);
+		        ypos2.append(wy);
+		        zpos2.append(wz);
+		        i = i+1
+
+		dx2 = np.ones(i)
+		dy2 = np.ones(i)
+		dz2 = np.ones(i)
+
+		for x in range(0,i):
+		    dx2[x] = K;
+
+		if i != 0:
+		    ax.bar3d(xpos2, ypos2, zpos2, dx2, dy2, dz2, color='r',alpha=0.2)
+
+		# ================================ Draw Up Rods ===========================
+		xpos3 = []
+		ypos3 = []
+		zpos3 = []
+
+		i = 0
+		with open("3dplotu.txt", "r") as file:
+		    for line in file:
+		        words = line.split()
+		        wx = float(words[0])
+		        wy = float(words[1])
+		        wz = float(words[2])
+		        xpos3.append(wx);
+		        ypos3.append(wy);
+		        zpos3.append(wz);
+		        i = i+1
+
+		dx3 = np.ones(i)
+		dy3 = np.ones(i)
+		dz3 = np.ones(i)
+
+		for z in range(0,i):
+		    dz3[z] = K
+		if i != 0:
+		    ax.bar3d(xpos3, ypos3, zpos3, dx3, dy3, dz3, color='g',alpha=0.2)
+
+	else:
+		#-----------------------Visualize certain layer only -----------------------
+		lay = float(layer)
+		# ================================ Draw Ver Rods ===========================
+		xpos = []
+		ypos = []
+		zpos = []
+
+		with open("3dplotv.txt", "r") as file:
+		    for line in file:
+		        words = line.split()
+		        wx = float(words[0])
+		        wy = float(words[1])
+		        wz = float(words[2])
+		        if plane == "x" and wx == lay:
+		            xpos.append(wx);
+		            ypos.append(wy);
+		            zpos.append(wz);
+		        elif plane == "y" and wy == lay:
+		            xpos.append(wx);
+		            ypos.append(wy);
+		            zpos.append(wz);
+		        elif plane == "z" and wz == lay:
+		            xpos.append(wx);
+		            ypos.append(wy);
+		            zpos.append(wz);
+		l = len(xpos)
+		dx = np.ones(l)
+		dy = np.ones(l)
+		dz = np.ones(l)
+
+		for y in range(0,l):
+		    dy[y] = K
+
+		if l != 0:
+		    ax.bar3d(xpos, ypos, zpos, dx, dy, dz, color='b',alpha=0.2)
+
+
+		# ================================ Draw Hor Rods ===========================
+		xpos2 = []
+		ypos2 = []
+		zpos2 = []
+		with open("3dploth.txt", "r") as file:
+		    for line in file:
+		        words = line.split()
+		        wx = float(words[0])
+		        wy = float(words[1])
+		        wz = float(words[2])
+		        if plane == "x" and wx == lay:
+		            xpos2.append(wx);
+		            ypos2.append(wy);
+		            zpos2.append(wz);
+		        elif plane == "y" and wy == lay:
+		            xpos2.append(wx);
+		            ypos2.append(wy);
+		            zpos2.append(wz);
+		        elif plane == "z" and wz == lay:
+		            xpos2.append(wx);
+		            ypos2.append(wy);
+		            zpos2.append(wz);      
+
+		m = len(xpos2)
+		dx2 = np.ones(m)
+		dy2 = np.ones(m)
+		dz2 = np.ones(m)
+
+		for x in range(0,m):
+		    dx2[x] = K
+
+		if m != 0:
+		    ax.bar3d(xpos2, ypos2, zpos2, dx2, dy2, dz2, color='r',alpha=0.2)
+
+		# ================================ Draw Up Rods ===========================
+		xpos3 = []
+		ypos3 = []
+		zpos3 = []
+
+		with open("3dplotu.txt", "r") as file:
+		    for line in file:
+		        words = line.split()
+		        wx = float(words[0])
+		        wy = float(words[1])
+		        wz = float(words[2])
+		        if plane == "x" and wx == lay:
+		            xpos3.append(wx);
+		            ypos3.append(wy);
+		            zpos3.append(wz);
+		        elif plane == "y" and wy == lay:
+		            xpos3.append(wx);
+		            ypos3.append(wy);
+		            zpos3.append(wz);
+		        elif plane == "z" and wz == lay:
+		            xpos3.append(wx);
+		            ypos3.append(wy);
+		            zpos3.append(wz);
+		n = len(xpos3)
+
+		dz3 = np.ones(n)
+		dx3 = np.ones(n)
+		dy3 = np.ones(n)
+
+		for z in range(0,n):
+		    dz3[z] = K
+		if n != 0:
+		    ax.bar3d(xpos3, ypos3, zpos3, dx3, dy3, dz3, color='g',alpha=0.2)
+	plt.show()
+
+
+
+
+
+# Draw2D(plane,layer)
+# a function that draws the rods:
+# with 2 parameters:
+#     plane indicates with plane we want to draw: 
+# choice: 
+#         0 ------------- x,y plane
+#         1 ------------- y,z plane
+#         2 ------------- z,x plane
+#     layer is a string index that indicates which layer we want to see: 
+def Draw2D(plane,layer,K):
+	fig = plt.figure()
+	ax = fig.add_subplot(111,aspect='equal')
+	#-----------------------Visualize certain layer only -----------------------
+	lay = float(layer)
+	# ================================ Draw Ver Rods ===========================
+	xpos = []
+	ypos = []
+	zpos = []
+
+	with open("3dplotv.txt", "r") as file:
+	    for line in file:
+	        words = line.split()
+	        wx = float(words[0])
+	        wy = float(words[1])
+	        wz = float(words[2])
+	        if plane == "x" and wx == lay:
+	            xpos.append(wx);
+	            ypos.append(wy);
+	            zpos.append(wz);
+
+	        elif plane == "y" and wy == lay:
+	            xpos.append(wx);
+	            ypos.append(wy);
+	            zpos.append(wz);
+
+	        elif plane == "z" and wz == lay:
+	            xpos.append(wx);
+	            ypos.append(wy);
+	            zpos.append(wz);
+	i = len(xpos)
+
+	dx = np.ones(i)
+	dz = np.ones(i)
+	dy = np.ones(i)
+
+	if plane == "x":
+		for y in range(0,i):
+		    dy[y]=K;
+		    ax.add_patch(
+		        patches.Rectangle(
+		            (ypos[y], zpos[y]),
+		            dy[y],
+		            dz[y],
+		        )
+		    )
+
+	if plane == "y":
+		for y in range(0,i):
+			dy[y]=K;
+			ax.add_patch(
+				patches.Rectangle(
+					(zpos[y], xpos[y]),
+					dz[y],
+					dx[y],
+				)
+			)
+
+
+	if plane == "z":
+		for y in range(0,i):
+		    dy[y]=K;
+		    ax.add_patch(
+		        patches.Rectangle(
+		            (xpos[y], ypos[y]),
+		            dx[y],
+		            dy[y],
+		        )
+		    )
+
+
+	# for y in range(0,i):
+	# 	if plane == "z":
+	#         # dy[y] = K
+ #            ax.add_patch(
+ #                patches.Rectangle(
+ #                    (xpos[y], ypos[y]),
+ #                    dx[y],
+ #                    dy[y],
+ #                    facecolor="blue"
+ #                )
+ #            )
+ #        elif plane == "x":
+ #        	# dy[y] = K
+ #            ax.add_patch(
+ #                patches.Rectangle(
+ #                    (ypos[y], zpos[y]),
+ #                    dy[y],
+ #                    dz[y],
+ #                    facecolor="blue"
+ #                )
+ #            )
+
+ #        elif plane =="y":
+ #        	# dy[y] = 1
+ #        	ax.add_patch(
+ #        		patches.Rectangle(
+ #        			(zpos[y], xpos[y]),
+ #        			dz[y],
+ #        			dx[y],
+ #        			facecolor="blue"
+ #        		)
+ #        	)
+	plt.show()
+
+
+
+
+
+def main():
+	check = True
+	while (check):
+		d = raw_input('Do you want to Visualize in 3D or 2D? Answer 3 or 2\n')
+		K = float(raw_input('Please remind me what is the lengh of our Rods this time?\n'))
+		if d == '3':		
+			plane = raw_input("Which plane do you want to see? \n"
+				"type 'x', 'y', 'z' or type 'all' if it's for the whole picture\n")
+			if plane == "all":
+				layer = 0
+				Draw3D(plane,layer,K)
+			else:
+				layer= raw_input("And with which layer?\n ")
+				Draw3D(plane,layer,K)
+			check = False
+
+		elif d == '2':
+			p = raw_input('Which plane do you want to see?\n')
+			l = raw_input('And with which layer? \n')
+			Draw2D(p,l,K)
+			check = False			
+		else:
+			print "I don't understand what do you mean"
+
+	print "Thanks for trying on my Draw Code! LOL"
+
+main()
+
+
+
+
+
+
+
+
+
