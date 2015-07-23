@@ -15,6 +15,19 @@ Square::Square()
 {
 	status = 0;
 }
+
+Square::Square(int s)
+{
+	if (s == 1)
+	{
+		status = 1;
+	}
+	else
+	{
+		status = 0;
+	}
+}
+
 // *** Setters *** //
 /*
 *  @function         setStatus

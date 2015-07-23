@@ -672,46 +672,20 @@ void MC::plot(const deque<HR>& VRodlist, const deque<HR>& HRodlist,const deque<H
 
 }
 
-// void Zvs_()
-// {
-// 	double z = 0;
-// 	double H,V,tho,Q,miubeta,cmiubeta;	
-// 	stringstream st;
-// 	ofstream myfile("dataNvsZ.dat");
-// 	for (int i =0; i < 500; i++)
-// 	{
-// 		MC m(1E6,1,10,10,z);
-// 		z = double (double(10*i)/500.0);
-// 		m.MCRUN();
-// 		H =  m.getNh();
-// 		V = m.getNv();
-// 		tho = m.getTho();
-// 		Q = (H - V)/(H + V);
-// 		miubeta = log(z); // vink, lecture 7,8: page2
-// 		cmiubeta = (log(tho) - log(1-tho));
-// 		st << z <<"         " << H << "             "<< V<< "             "<<tho<< "             "<<Q<< "             "<< miubeta<< "             "<< cmiubeta << endl;
-// 	}
-// 	string data = st.str();
-// 	myfile << data;
-// 	myfile.close();
-// }
-
 
 int main()
 {
 	double start = clock();
 
-	// // ======================= Plotting the final config ========================
+	// ======================= Plotting the final config ========================
 	deque<HR> VR,HR,UR;
-	MC m(1E11L,8,32,32,32,1);
+	MC m(1E7L,8,32,32,32,1);
 	m.MCRUN();
 	VR = m.getVRodlist();
 	HR = m.getHRodlist();
 	UR = m.getURodlist();
 	m.plot(VR,HR,UR);
-	// // ======================= get data for N vs z ========================
-	// // Zvs_();
-	// // ======================= end of simulation, print out the time =======
+	// ======================= end of simulation, print out the time ===========
 	double end = clock();
 	cout <<"This simulation takes "<< (double(end-start)/CLOCKS_PER_SEC)<<endl;
 	return 0;

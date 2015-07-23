@@ -429,7 +429,7 @@ def Draw2D(plane,layer,K):
 	plt.axis('equal')
 	title = '2dplot'+'_'+plane+'_'+layer+'.png'
 	fig.savefig(title, dpi=180, bbox_inches='tight')
-	plt.show()
+	# plt.show()
 
 
 

@@ -437,7 +437,7 @@ def Draw2D(plane,layer,K):
 
 def main():
 	print "#===============================#"
-	print "# Welcome to the world drawing! #"
+	print "# Welcome to the world of Rods! #"
 	print "#===============================#"
 	print "Here is how it works:"
 	print "----------------------------------------------------------------------------------"
@@ -463,6 +463,14 @@ def main():
 			elif plane =='x' or plane == 'y' or plane == 'z':
 				layer= raw_input("And on which layer?\n")
 				Draw3D(plane,layer,K)
+				again = "a"
+				while(again != "n"):
+					again = raw_input("Do you want to checkout other layers on this plane? y/n\n")
+					if again == "y":
+						layer= raw_input("And on which layer this time?\n")
+						Draw3D(plane,layer,K)
+					else:
+						again = "n"
 				check = False
 			else:
 				print "I don't understand what do you mean\n"
@@ -475,7 +483,15 @@ def main():
 			if p =='x' or p == 'y' or p == 'z':
 				l = raw_input('And on which layer?\n')
 				Draw2D(p,l,K)
-				check = False
+				again = "a"
+				while(again != "n"):
+					again = raw_input("Do you want to checkout other layers on this plane? y/n\n")
+					if again == "y":
+						l= raw_input("And on which layer this time?\n")
+						Draw2D(p,l,K)
+					else:
+						again = "n"
+				check = False				
 			else:
 				print "I don't understand what do you mean\n"			
 

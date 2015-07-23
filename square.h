@@ -27,6 +27,11 @@ class Square
 		*/   
 	    Square();
 
+	    /*!
+		*  Constructor that indicates the status of Square
+		*/
+		Square(int s);
+
 
 		// *** Setters *** //
 		void setStatus(int newStatus);
