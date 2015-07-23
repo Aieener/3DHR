@@ -436,30 +436,53 @@ def Draw2D(plane,layer,K):
 
 
 def main():
+	print "#===============================#"
+	print "# Welcome to the world drawing! #"
+	print "#===============================#"
+	print "Here is how it works:"
+	print "----------------------------------------------------------------------------------"
+	print "First of all, kindly inform us whether you want to visualize the Rods in 3D or 2D;"
+	print "Then, please remind us what is length of our Rods for this time;\nNext pick a direction of the 'plane':"
+	print "x ----------> y,z plane\ny ----------> z,x plane\nz ----------> x,y plane\nall----------> the entire picture"
+	print "Last, choose a layer to specify the exact plane you want to see.\n\nGood Luck!"
+	print "----------------------------------------------------------------------------------"
+
 	check = True
 	while (check):
 		d = raw_input('Do you want to Visualize in 3D or 2D? Answer 3 or 2\n')
-		K = float(raw_input('Please remind me what is the lengh of our Rods this time?\n'))
-		if d == '3':		
-			plane = raw_input("Which plane do you want to see? \n"
-				"type 'x', 'y', 'z' or type 'all' if it's for the whole picture\n")
+
+		if d == '3':
+			K = float(raw_input('Please remind me what is the length of our Rods this time?\n'))		
+			plane = raw_input("Which plane do you want to see?\n"
+				"type 'x', 'y', 'z' or type 'all' if you want to see the entire picture\n")
 			if plane == "all":
 				layer = 0
 				Draw3D(plane,layer,K)
-			else:
-				layer= raw_input("And with which layer?\n ")
+				check = False
+
+			elif plane =='x' or plane == 'y' or plane == 'z':
+				layer= raw_input("And on which layer?\n")
 				Draw3D(plane,layer,K)
-			check = False
+				check = False
+			else:
+				print "I don't understand what do you mean\n"
+
 
 		elif d == '2':
-			p = raw_input('Which plane do you want to see?\n')
-			l = raw_input('And with which layer? \n')
-			Draw2D(p,l,K)
-			check = False			
-		else:
-			print "I don't understand what do you mean"
+			K = float(raw_input('Please remind me what is the length of our Rods this time?\n'))
+			p = raw_input("Which plane do you want to see?\n"
+				"type 'x', 'y' or 'z'\n")
+			if p =='x' or p == 'y' or p == 'z':
+				l = raw_input('And on which layer?\n')
+				Draw2D(p,l,K)
+				check = False
+			else:
+				print "I don't understand what do you mean\n"			
 
-	print "Thanks for trying on my Draw Code! LOL"
+		else:
+			print "I don't understand what do you mean\n"
+
+	print "Thanks for trying on our Drawing tool!\nSee you soon! LOL"
 
 main()
 

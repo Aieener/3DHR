@@ -437,7 +437,7 @@ def Draw2D(plane,layer,K):
 
 def main():
 	print "#===============================#"
-	print "# Welcome to the world drawing! #"
+	print "# Welcome to the world of Rods! #"
 	print "#===============================#"
 	print "Here is how it works:"
 	print "----------------------------------------------------------------------------------"
