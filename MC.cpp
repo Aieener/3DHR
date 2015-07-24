@@ -697,7 +697,7 @@ int main()
 
 	// ======================= Plotting the final config ========================
 	vector<HR> VR,HR,UR;
-	MC m(1E8L,8,16,16,16,10000);
+	MC m(1E8L,8,32,32,32,1000);
 	m.MCRUN();
 	VR = m.getVRodlist();
 	HR = m.getHRodlist();
