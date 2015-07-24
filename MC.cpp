@@ -34,7 +34,6 @@
 #include <cstdlib>
 #include <cmath>
 #include <time.h>
-#include <deque>
 #include "histogram.h"
 #include <array>
 using namespace std;
@@ -54,17 +53,17 @@ MC::MC(long int ST, int LEN, int C, int R, int H, double Z)
 	nh=nv=nu=dh=dv=du=ah=av=au=0;
 }
 
-deque<HR> MC::getVRodlist() 
+vector<HR> MC::getVRodlist() 
 {
 	return VRodlist;
 }
 
-deque<HR> MC::getHRodlist() 
+vector<HR> MC::getHRodlist() 
 {
 	return HRodlist;
 }
 
-deque<HR> MC::getURodlist() 
+vector<HR> MC::getURodlist() 
 {
 	return URodlist;
 }
@@ -107,7 +106,7 @@ deque<HR> MC::getURodlist()
 // 	return nv;
 // }
 
-// void MC::setRodlist(std::deque<HR> RodL)
+// void MC::setRodlist(std::vector<HR> RodL)
 // {
 // 	Rodlist = RodL;
 // }
@@ -397,7 +396,7 @@ void MC::Del(Cells &s,double &prob,double &probdv, double &probdh, double &probd
 						// update the new config of cells
 						s.getSquare(x,y + i,z).setStatus(0);
 					}
-					// remove the target rod from the deque Rodlist;
+					// remove the target rod from the vector Rodlist;
 					VRodlist.erase(VRodlist.begin() + indx);
 					nv--;// substract the # of ver rod;
 					dv++;
@@ -445,7 +444,7 @@ void MC::Del(Cells &s,double &prob,double &probdv, double &probdh, double &probd
 						// update the new config of cells
 						s.getSquare(x+i,y,z).setStatus(0);
 					}
-					// remove the target rod from the deque Rodlist;
+					// remove the target rod from the vector Rodlist;
 					HRodlist.erase(HRodlist.begin() + indx);
 					nh--;// subtract the # of hor rod;
 					dh++;
@@ -495,7 +494,7 @@ void MC::Del(Cells &s,double &prob,double &probdv, double &probdh, double &probd
 						// update the new config of cells
 						s.getSquare(x,y,z+i).setStatus(0);
 					}
-					// remove the target rod from the deque Rodlist;
+					// remove the target rod from the vector Rodlist;
 					URodlist.erase(URodlist.begin() + indx);
 					nu--;// substract the # of hor rod;
 					du++;
@@ -590,7 +589,7 @@ void MC::MCRUN()
 		probav = min(1.0,aaccpv);
 		probau = min(1.0,aaccpu);
 
-		//******************* The structure of my deque list of HR ***********************
+		//******************* The structure of my vector list of HR ***********************
         // I have 3 lists corresponding to my 3 species
 		// *******************************************************************************
 
@@ -636,7 +635,7 @@ void MC::MCRUN()
 }
 
 
-void MC::plot(const deque<HR>& VRodlist, const deque<HR>& HRodlist,const deque<HR>& URodlist)
+void MC::plot(const vector<HR>& VRodlist, const vector<HR>& HRodlist,const vector<HR>& URodlist)
 {
 	stringstream stv,sth,stu;
 
@@ -678,7 +677,7 @@ int main()
 	double start = clock();
 
 	// ======================= Plotting the final config ========================
-	deque<HR> VR,HR,UR;
+	vector<HR> VR,HR,UR;
 	MC m(1E7L,8,32,32,32,1);
 	m.MCRUN();
 	VR = m.getVRodlist();

@@ -19,14 +19,15 @@ class Boxgen
 {
     private:
     	//data members;
-    	std::deque<HR> VRodlist; // the list storage the Vertical Rods;
-        std::deque<HR> HRodlist; // the list storage the Horizantal Rods;
-        std::deque<HR> URodlist; // the list storage the Up Rods;
-    	int r,c,h; // size of the volume 'box'
+    	int r,c,h; // size of the main'box'
         int o; // the orientation of the box
     	int length; // length of the rod
        
     public:
+        //Constructer: initialize the oritation of our box
+        //and then assighn the corresponding rod pos into a list.
+        //when we add a subbox into our Box/Cells, we assign the rod list into the real Rodlist;
+
     	Boxgen(int Orien,int Len); 
 
     	// ********* Getters********//

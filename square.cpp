@@ -1,5 +1,5 @@
 // square.cpp
-// 2-D lattice gas
+// 3-D HR
 // Author: Yuding Ai
 // Date: 2015.06.05
 
