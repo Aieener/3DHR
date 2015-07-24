@@ -13,24 +13,44 @@
 #include <array>
 using namespace std;
 
+
+// vector1.insert( vector1.end(), vector2.begin(), vector2.end() );
+
+
 #ifndef BOXGEN_H
 #define BOXGEN_H
 class Boxgen
 {
     private:
     	//data members;
-    	int r,c,h; // size of the main'box'
-        int o; // the orientation of the box
+        std::vector<HR> BVRodlist; // the list storage the Vertical Rods;
+        std::vector<HR> BHRodlist; // the list storage the Horizantal Rods;
+        std::vector<HR> BURodlist; // the list storage the Up Rods;
+        int o; // the orientation of the box 
+        /*
+        0 ---------------> filling up with Verticle Rods;
+        1 ---------------> filling up with Horizontal Rods;
+        2 ---------------> filling up with Up Rods;
+        3 and other nonsense # ---------------> empty box;
+        */
     	int length; // length of the rod
+        int lx,ly,lz; // the location of the subbox to be assign to
        
     public:
         //Constructer: initialize the oritation of our box
         //and then assighn the corresponding rod pos into a list.
         //when we add a subbox into our Box/Cells, we assign the rod list into the real Rodlist;
 
-    	Boxgen(int Orien,int Len); 
+    	Boxgen(int Lx,int Ly, int Lz, int Orien,int Len); 
 
     	// ********* Getters********//
+        int getLength() const;
+        array<int,3> getPos() const;
+        int getOri() const;
+
+        const vector<HR>& getBVRodlist() const;
+        const vector<HR>& getBHRodlist() const;
+        const vector<HR>& getBURodlist() const;
 
         // ******** Setters ******//
 

@@ -9,6 +9,7 @@
 #include <cmath>
 #include <time.h>
 #include <vector>
+#include <vector>
 #include <array>
 using namespace std;
 
@@ -34,9 +35,10 @@ class MC
 
     	// ********* Getters********//
 
-    	vector<HR> getVRodlist();
-        vector<HR> getHRodlist();
-        vector<HR> getURodlist();
+        const vector<HR>& getVRodlist() const;
+        const vector<HR>& getHRodlist() const;
+        const vector<HR>& getURodlist() const;
+
     	double getTho() const;
     	double getQ() const;
     	double getAaccp() const;

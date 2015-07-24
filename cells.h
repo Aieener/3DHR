@@ -8,6 +8,7 @@
 #include <vector>
 #include "hardrods.h"
 #include "square.h"
+#include "Boxgen.h"
 using namespace std;
 
 // template< int N0, int N1, int N2> inline const int rten_idx(const int i0, const int i1, const int i2)
@@ -28,6 +29,8 @@ class Cells
 		int N2;         // Height;
 		int size;       // the total size of the grid
 		Square * arr;   // linearized array of Squares
+		std::vector<Boxgen> Boxlist; // the list storage the subboxes;
+
 
 	public:
 		Cells();
@@ -38,7 +41,8 @@ class Cells
 		*  @param      int c - column index
 		*  initialize all states to 0;
 		*/
-		Cells(int x,int y, int z);
+		Cells(int X,int Y, int Z, bool B,int length);
+
 
 		/*
 		*  Destructor
@@ -51,6 +55,7 @@ class Cells
 		int getN2() const;
 		int getSize() const;
 		int getIdx( int x, int y, int z) const;
+		const vector<Boxgen>& getBoxlist() const;
 
 
 

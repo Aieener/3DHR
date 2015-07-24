@@ -36,6 +36,7 @@
 #include <time.h>
 #include "histogram.h"
 #include <array>
+#include "Boxgen.h"
 using namespace std;
 
 
@@ -53,17 +54,17 @@ MC::MC(long int ST, int LEN, int C, int R, int H, double Z)
 	nh=nv=nu=dh=dv=du=ah=av=au=0;
 }
 
-vector<HR> MC::getVRodlist() 
+const vector<HR>& MC::getVRodlist() const
 {
 	return VRodlist;
 }
 
-vector<HR> MC::getHRodlist() 
+const vector<HR>& MC::getHRodlist() const
 {
 	return HRodlist;
 }
 
-vector<HR> MC::getURodlist() 
+const vector<HR>& MC::getURodlist() const
 {
 	return URodlist;
 }
@@ -426,7 +427,7 @@ void MC::Del(Cells &s,double &prob,double &probdv, double &probdh, double &probd
 		if(HRodlist.size()!=0)// make sure there are Hor rod;
 		{
 			int indx;
-			indx = rand()%int(nh); // redefine indx from Rodlist[nv,nv+nh-1] 
+			indx = rand()%int(nh); // redefine indx from Rodlist[0,nh] 
 
 			//remove Rodlist[indx];
 			int x,y,z;// the position of the target on the cells;
@@ -476,7 +477,7 @@ void MC::Del(Cells &s,double &prob,double &probdv, double &probdh, double &probd
 		if(URodlist.size()!=0)// make sure there are Hor rod;
 		{
 			int indx;
-			indx = rand()%int(nu); // redefine indx from Rodlist[nv,nv+nh-1] 
+			indx = rand()%int(nu); // redefine indx from Rodlist[0,nu]
 
 			//remove Rodlist[indx];
 			int x,y,z;// the position of the target on the cells;
@@ -525,24 +526,6 @@ void MC::Del(Cells &s,double &prob,double &probdv, double &probdh, double &probd
 
 void MC::MCRUN()
 {
-	//create my grid of empty cells;
-	Cells s(c,r,h); 
-
-
-	// ******************  if there is an initial state:************************** //
-	// Rodlist = s.Initial(length,753,1);
-	// int k = 0;
-	// for(int i = 0; i < Rodlist.size();i++)
-	// {
-	// 	if (Rodlist[i].getOrientation() == 0)
-	// 	{
-	// 		k++;
-	// 	}
-	// }
-	// nv = av = k;
-	// nh = ah = Rodlist.size() - k;
-	// ******************  finish setting initial state************************** //
-
 	stringstream st;
 
 	double addordel; // the prob to decide either add or del;
@@ -561,6 +544,42 @@ void MC::MCRUN()
 	Histogram hisv(0, r*c*h/length, 1); // the histogram of nv
 	Histogram hish(0, r*c*h/length, 1); // the histogram of nh
 	Histogram hisu(0, r*c*h/length, 1); // the histogram of nu
+
+	// ****************** if start with an empty Box ***************************** //
+	//create my grid of empty cells;
+	// Cells s(c,r,h,false,length); 
+
+
+	// ******************  if there is an initial state:************************** //
+    Cells s(c,r,h,true, length);
+    // merge the rodlists as the initial config
+	std::vector<Boxgen> list;
+	list = s.getBoxlist();
+	for(int i = 0; i<list.size(); i ++)
+	{
+		if(list[i].getOri() == 0)
+		{
+			av += length*length;
+			nv = av;
+		    VRodlist.insert(VRodlist.end(),list[i].getBVRodlist().begin(),list[i].getBVRodlist().end());
+		}
+		else if (list[i].getOri() == 1)
+		{
+			ah += length*length;
+			nh = ah;
+			HRodlist.insert(HRodlist.end(),list[i].getBHRodlist().begin(),list[i].getBHRodlist().end());
+		}
+		else if(list[i].getOri() == 2)
+		{
+			au += length*length;
+			nu = au;
+			URodlist.insert(URodlist.end(),list[i].getBURodlist().begin(),list[i].getBURodlist().end());
+		}
+	}
+
+	// ******************  finish setting initial state************************** //
+
+
 	//================================Start my MC simulation=================================
 	while (i<step)
 	{
@@ -678,7 +697,7 @@ int main()
 
 	// ======================= Plotting the final config ========================
 	vector<HR> VR,HR,UR;
-	MC m(1E7L,8,32,32,32,1);
+	MC m(1E8L,8,16,16,16,10000);
 	m.MCRUN();
 	VR = m.getVRodlist();
 	HR = m.getHRodlist();

@@ -8,8 +8,8 @@ PROG1 = MC
 
 all: runit
 
-runit: $(PROG1).o cells.o square.o hardrods.o histogram.o
-		$(CC) $(PROG1).o cells.o square.o hardrods.o histogram.o -o runit
+runit: $(PROG1).o cells.o square.o hardrods.o histogram.o Boxgen.o
+		$(CC) $(PROG1).o cells.o square.o hardrods.o histogram.o Boxgen.o -o runit
 
 $(PROG1).o: $(PROG1).cpp
 		$(CC) $(CFLAGS) $(PROG1).cpp
@@ -25,6 +25,9 @@ hardrods.o: hardrods.cpp
 
 histogram.o: histogram.cpp
 		$(CC) $(CFLAGS) histogram.cpp
+
+Boxgen.o: Boxgen.cpp
+		$(CC) $(CFLAGS) Boxgen.cpp
 
 clean:
 		rm -rf *o run
