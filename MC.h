@@ -54,6 +54,7 @@ class MC
         void Del(Cells &s,double &prob,double &probdv, double &probdh, double &probdu);
     	void MCRUN(); 
         void Zvs_();
+        
 
     	void plot(const vector<HR>& VRodlist, const vector<HR>& HRodlist,const vector<HR>& URodlist);
 
