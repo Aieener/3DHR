@@ -127,6 +127,9 @@ def Draw3D(plane,layer,K):
 		            xpos.append(wx);
 		            ypos.append(wy);
 		            zpos.append(wz);
+	            #Draw the "Remnant part" of Ver Rods:
+	            
+
 		l = len(xpos)
 		dx = np.ones(l)
 		dy = np.ones(l)
