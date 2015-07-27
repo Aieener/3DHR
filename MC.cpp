@@ -524,7 +524,7 @@ void MC::Del(Cells &s,double &prob,double &probdv, double &probdh, double &probd
 }
 
 
-void MC::MCRUN()
+void MC::MCRUN(int init)
 {
 	stringstream st;
 
@@ -537,7 +537,9 @@ void MC::MCRUN()
 	double Q; // the fraction of hor and ver particle;
 	double tho; // the density 
 	double size;
-		
+	Cells s1(c,r,h,0,length); 
+	Cells s2(c,r,h,1, length);
+	
 	srand(time(NULL));
 	long int i = 0;
 	Histogram hisv(0, r*c*h/length, 1); // the histogram of nv
@@ -546,35 +548,42 @@ void MC::MCRUN()
 
 	// ****************** if start with an empty Box ***************************** //
 	//create my grid of empty cells;
-	// Cells s(c,r,h,false,length); 
-
+	if ( init == EMPTY)
+	{		
+		// do nothing since it's empty
+	}
 
 	// ******************  if there is an initial state:************************** //
-    Cells s(c,r,h,true, length);
-    // merge the rodlists as the initial config
-	std::vector<Boxgen> list;
-	list = s.getBoxlist();
-	for(int i = 0; i<list.size(); i ++)
+	else if (init == BOX)
 	{
-		if(list[i].getOri() == 0)
+	    // merge the rodlists to be the BOX initial config
+		std::vector<Boxgen> list;
+		list = s2.getBoxlist();
+		for(int i = 0; i<list.size(); i ++)
 		{
-			av += length*length;
-			nv = av;
-		    VRodlist.insert(VRodlist.end(),list[i].getBVRodlist().begin(),list[i].getBVRodlist().end());
+			if(list[i].getOri() == 0)
+			{
+				av += length*length;
+				nv = av;
+			    VRodlist.insert(VRodlist.end(),list[i].getBVRodlist().begin(),list[i].getBVRodlist().end());
+			}
+			else if (list[i].getOri() == 1)
+			{
+				ah += length*length;
+				nh = ah;
+				HRodlist.insert(HRodlist.end(),list[i].getBHRodlist().begin(),list[i].getBHRodlist().end());
+			}
+			else if(list[i].getOri() == 2)
+			{
+				au += length*length;
+				nu = au;
+				URodlist.insert(URodlist.end(),list[i].getBURodlist().begin(),list[i].getBURodlist().end());
+			}
 		}
-		else if (list[i].getOri() == 1)
-		{
-			ah += length*length;
-			nh = ah;
-			HRodlist.insert(HRodlist.end(),list[i].getBHRodlist().begin(),list[i].getBHRodlist().end());
-		}
-		else if(list[i].getOri() == 2)
-		{
-			au += length*length;
-			nu = au;
-			URodlist.insert(URodlist.end(),list[i].getBURodlist().begin(),list[i].getBURodlist().end());
-		}
+		;
+		
 	}
+
 
 	// ******************  finish setting initial state************************** //
 
@@ -615,7 +624,16 @@ void MC::MCRUN()
 		if(addordel == 0) 
 		{
 			//Do Addition;
-			Add(s,prob,probav,probah,probau);
+			if ( init == EMPTY)
+			{
+				Add(s1,prob,probav,probah,probau);
+			}
+
+			else if (init == BOX)
+			{
+				Add(s2,prob,probav,probah,probau);
+			}
+			
 		}
 
 		// ============================Deletion=============================
@@ -624,7 +642,14 @@ void MC::MCRUN()
 			if (size != 0) // make sure there are rods to be del;
 			{
 				//Do deletion;
-				Del(s,prob,probdv, probdh,probdu);
+				if (init == EMPTY)
+				{
+					Del(s1,prob,probdv, probdh,probdu);					
+				}
+				if (init == BOX)
+				{
+					Del(s2,prob,probdv, probdh,probdu);
+				}
 			}			
 		}
 

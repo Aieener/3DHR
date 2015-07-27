@@ -31,6 +31,7 @@ class MC
         
 
     public:
+        enum INIT {EMPTY,BOX,PLANE};
     	MC(long int ST, int LEN, int C, int R, int H, double Z); //(C==X, R==y,H==z)
 
     	// ********* Getters********//
@@ -52,7 +53,7 @@ class MC
     	// ******** Other Functianality *******//
         void Add(Cells &s,double &prob,double &probav, double &probah, double &probau);
         void Del(Cells &s,double &prob,double &probdv, double &probdh, double &probdu);
-    	void MCRUN(); 
+    	void MCRUN(int init); 
         void Zvs_();
         
 

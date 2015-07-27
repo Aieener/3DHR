@@ -31,7 +31,7 @@ Cells::Cells()
 }
 
 
-Cells::Cells(int X, int Y, int Z, bool B,int length)
+Cells::Cells(int X, int Y, int Z, int init,int length)
 {
 	Boxlist.clear(); // the list of subBox
 	N0 = X; // length
@@ -39,7 +39,7 @@ Cells::Cells(int X, int Y, int Z, bool B,int length)
     N2 = Z; // height
     size = (N0)*(N1)*(N2);
     arr = new Square[size];
-    if (B == false)
+    if (init == EMPTY)
     {
     	//initialize my cell with empty config
 		for(int i = 0; i < size; i++)
@@ -48,7 +48,7 @@ Cells::Cells(int X, int Y, int Z, bool B,int length)
 		}
     }
 
-    else
+    else if (init == BOX)
 	{
 		//initialize my cell with filling up with subboxes config
 

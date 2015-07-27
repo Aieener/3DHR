@@ -33,6 +33,7 @@ class Cells
 
 
 	public:
+		enum INIT {EMPTY,BOX,PLANE};
 		Cells();
 
 		/*
@@ -41,7 +42,7 @@ class Cells
 		*  @param      int c - column index
 		*  initialize all states to 0;
 		*/
-		Cells(int X,int Y, int Z, bool B,int length);
+		Cells(int X,int Y, int Z, int init,int length);
 
 
 		/*
