@@ -536,7 +536,6 @@ void MC::MCRUN()
 	double daccph,daccpv,daccpu;
 	double Q; // the fraction of hor and ver particle;
 	double tho; // the density 
-	double AD;// addition and deletion fraction
 	double size;
 		
 	srand(time(NULL));
@@ -631,7 +630,6 @@ void MC::MCRUN()
 
 		// ======================= Record the datas =============================================		
         Q = (nv - nh)/(nh + nv);
-		AD = (av+ah-dv-dh)/(av+ah+dv+dh);
 
 		if (i%(step/10000) == 0)
 		{
@@ -691,21 +689,20 @@ void MC::plot(const vector<HR>& VRodlist, const vector<HR>& HRodlist,const vecto
 }
 
 
-int main()
-{
-	double start = clock();
-
-	// ======================= Plotting the final config ========================
-	vector<HR> VR,HR,UR;
-	MC m(1E8L,4,16,16,16,20000);
-	m.MCRUN();
-	VR = m.getVRodlist();
-	HR = m.getHRodlist();
-	UR = m.getURodlist();
-	m.plot(VR,HR,UR);
-	// ======================= end of simulation, print out the time ===========
-	double end = clock();
-	cout <<"This simulation takes "<< (double(end-start)/CLOCKS_PER_SEC)<<endl;
-	return 0;
-}
+// int main()
+// {
+// 	double start = clock();
+// 	// ======================= Plotting the final config ========================
+// 	vector<HR> VR,HR,UR;
+// 	MC m(1E8L,4,16,16,16,20000);
+// 	m.MCRUN();
+// 	VR = m.getVRodlist();
+// 	HR = m.getHRodlist();
+// 	UR = m.getURodlist();
+// 	m.plot(VR,HR,UR);
+// 	// ======================= end of simulation, print out the time ===========
+// 	double end = clock();
+// 	cout <<"This simulation takes "<< (double(end-start)/CLOCKS_PER_SEC)<<endl;
+// 	return 0;
+// }
 

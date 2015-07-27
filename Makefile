@@ -4,15 +4,18 @@ CC = g++
 
 CFLAGS = -c -Wall -pedantic -Ofast -march=native -std=c++11 
 
-PROG1 = MC
+PROG1 = main
 
 all: runit
 
-runit: $(PROG1).o cells.o square.o hardrods.o histogram.o Boxgen.o
-		$(CC) $(PROG1).o cells.o square.o hardrods.o histogram.o Boxgen.o -o runit
+runit: $(PROG1).o cells.o square.o hardrods.o histogram.o Boxgen.o MC.o
+		$(CC) $(PROG1).o cells.o square.o hardrods.o histogram.o Boxgen.o MC.o -o runit
 
 $(PROG1).o: $(PROG1).cpp
 		$(CC) $(CFLAGS) $(PROG1).cpp
+
+MC.o: MC.cpp
+		$(CC) $(CFLAGS) MC.cpp
 
 cells.o: cells.cpp
 		$(CC) $(CFLAGS) cells.cpp
