@@ -587,7 +587,7 @@ void MC::MCRUN()
 		addordel = rand()%2 ; 
 		size = av+ah+au-dv-dh-du;
 
-		// *****************define the probabilities ***********************************// I HAVE TO CHANGE IT FOR LATTICE GAS CASE!!!
+		// *****************define the probabilities ***********************************
 		prob = ((double) rand() / (RAND_MAX)); 
 		tho = double(length*size)/double(r*c*h);
 
@@ -630,16 +630,30 @@ void MC::MCRUN()
 
 		// ======================= Record the datas =============================================		
         Q = (nv - nh)/(nh + nv);
+        if (step >= 10000)
+        {
+    		if (i%(step/10000) == 0)
+			{
+				hisv.record(nv);
+				hish.record(nh);
+				hisu.record(nu);
 
-		if (i%(step/10000) == 0)
+				st << i << "         " << Q <<"        "<< nv << "          "<< nh << "         "<< nu << "         "<< tho<< "         "<< endl;
+				cout <<"Process: "<< ((10000*i)/step)/100.00 <<"%"<<"    "<<"SIZE: "<<av+ah+au-dv-dh-du<<"    "<<"# of Ver Rod: "<<nv<<"    "<<"# of Hor Rod: "<< nh <<"   "<<"# of Up Rod "<<nu <<"   "<<"tho is: "<<tho << endl;
+			}    	
+        }
+
+
+		else 
 		{
 			hisv.record(nv);
 			hish.record(nh);
 			hisu.record(nu);
-
 			st << i << "         " << Q <<"        "<< nv << "          "<< nh << "         "<< nu << "         "<< tho<< "         "<< endl;
-			cout <<"Process: "<< ((10000*i)/step)/100.00 <<"%"<<"    "<<"SIZE: "<<av+ah+au-dv-dh-du<<"    "<<"# of Ver Rod: "<<nv<<"    "<<"# of Hor Rod: "<< nh <<"   "<<"# of Up Rod "<<nu <<"   "<<"tho is: "<<tho << endl;
+			cout <<"Process: "<< 100*(double(i)/double(step)) <<"%"<<"    "<<"SIZE: "<<av+ah+au-dv-dh-du<<"    "<<"# of Ver Rod: "<<nv<<"    "<<"# of Hor Rod: "<< nh <<"   "<<"# of Up Rod "<<nu <<"   "<<"tho is: "<<tho << endl;
 		}
+
+
 	}
 	// Record the data into a txt file
 	ofstream myfile3 ("dataplot.dat");
