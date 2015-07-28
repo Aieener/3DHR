@@ -5,7 +5,6 @@
 #include <string>
 #include "square.h"
 #include "cells.h"
-// #include "MC.h"
 #include "hardrods.h"
 #include <cstdlib>
 #include <cmath>

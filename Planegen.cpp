@@ -5,8 +5,6 @@
 
 #include "Planegen.h"
 
-using namespace std;
-
 Planegen::Planegen(int Plane, int Lay, int L, int Orien,int Len)
 {
 	plane = Plane;
@@ -134,8 +132,3 @@ const vector<HR>& Planegen::getPURodlist() const
 	return PURodlist;
 }
 
-int main()
-{
-	return 0;
-
-}

@@ -3,24 +3,14 @@
 // Author: Yuding Ai
 // Date: 2015.07.15
 
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <string>
+
 #include "cells.h"
-#include "hardrods.h"
-#include "MC.h"
-#include <cstdlib>
-#include <cmath>
-#include <array>
-#include <cassert>
-#include "Boxgen.h"
-using namespace std;
 extern const string EXC_INVALID_DESC = "Not a valid description of cells!";
 
 Cells::Cells()
 {
 	Boxlist.clear();
+	Planelist.clear();
 	N0 = 1;
 	N1 = 1;
 	N2 = 1;
@@ -34,6 +24,7 @@ Cells::Cells()
 Cells::Cells(int X, int Y, int Z, int init,int length)
 {
 	Boxlist.clear(); // the list of subBox
+	Planelist.clear(); // the list of subplane
 	N0 = X; // length
 	N1 = Y; // width
     N2 = Z; // height
@@ -91,24 +82,41 @@ Cells::Cells(int X, int Y, int Z, int init,int length)
 		srand (time(NULL));
 		int Pl; // pick an plane first
 		Pl = rand()%3;
-		
-    	for(int i = 0; i < X/length; i++)
-    	{   
-			for ( int j = 0; j < Y/length; j++)
-			{
-				for (int k = 0; k < Z/length; k++)
-				{
-					int Or; //pick a random config of subbox to add into Box
-					Or = rand()%3; 
-					int l,m,n;
-					l = i*length;
-					m = j*length;
-					n = k*length;
-					Boxgen subox(l,m,n,Or,length);
-					Boxlist.push_back(subox);
-				}
+
+		if (Pl == X_)
+		{
+			int Or;// Pick a random Orientation: in the case of X_plane, one can only choose from VER or UP
+			for (int i = 0; i < N0; i ++)
+			{				
+				Or = 2*rand()%2;// Or can be either 0 --> Ver or 2 --> UP;				
+				Planegen subplane(X_, i, N0, Or, length);
+				// Planegen(int Plane, int Lay, int L, int Orien,int Len); 
+				Planelist.push_back(subplane);
 			}
-    	}
+
+		}
+
+		else if (Pl == Y_)
+		{
+			int Or;// Pick a random Orientation: in the case of Y_plane, one can only choose from HOR or UP
+			for (int i = 0; i< N1; i++)
+			{
+				Or = 1 + rand()%2;// Or can be either 1 --> HOR or 2 --> UP;
+				Planegen subplane(Y_, i, N1, Or, length);
+				Planelist.push_back(subplane);
+			}			
+		}
+
+		else if (Pl == Z_)
+		{
+			int Or;// Pick a random Orientation: in the case of Z_plane, one can only choose from VER or HOR
+			for (int i = 0; i<N2; i++)
+			{
+				Or = rand()%2; // Or can be either 0 --> VER or 1 --> HOR;
+				Planegen subplane(Z_, i, N2, Or, length);
+				Planelist.push_back(subplane);
+			}
+		}
     }
 }
 
@@ -146,6 +154,11 @@ const vector<Boxgen>& Cells::getBoxlist() const
 {
 	return Boxlist;
 }
+
+const vector<Planegen>& Cells::getPlanelist() const
+{
+	return Planelist;
+}
 // *** Other Functionality *** //
 
 int Cells::getIdx( int x, int y, int z) const
@@ -161,28 +174,27 @@ Square& Cells::getSquare( int x, int y, int z) const
 	}
 
 	int idx = getIdx(x,y,z);
-	// cout << idx<<endl;
 	return arr[idx];
 }
 
 
 // int main()
 // {
-// 	Cells k;
-// 	Cells w(2,2,2); // we can't take square(2,2,2)!!!
-// 	int size =  w.getSize() ;
-// 	cout <<size<<endl;
-// 	// w.getSquare(1,1,1).setStatus(1);
-// 	int a = w.getSquare(0,0,0).getStatus();
-// 	int b = w.getSquare(1,0,0).getStatus();
-// 	int c = w.getSquare(0,1,0).getStatus();
-// 	int d = w.getSquare(0,0,1).getStatus();
-// 	int e = w.getSquare(1,0,1).getStatus();
-// 	int f = w.getSquare(1,1,0).getStatus();
-// 	int g = w.getSquare(0,1,1).getStatus();
-// 	int h = w.getSquare(1,1,1).getStatus();
-// 	// assert(w.getSquare(1,1,1).isEmpty());
+// 	// Cells k;
+// 	// Cells w(2,2,2); // we can't take square(2,2,2)!!!
+// 	// int size =  w.getSize() ;
+// 	// cout <<size<<endl;
+// 	// // w.getSquare(1,1,1).setStatus(1);
+// 	// int a = w.getSquare(0,0,0).getStatus();
+// 	// int b = w.getSquare(1,0,0).getStatus();
+// 	// int c = w.getSquare(0,1,0).getStatus();
+// 	// int d = w.getSquare(0,0,1).getStatus();
+// 	// int e = w.getSquare(1,0,1).getStatus();
+// 	// int f = w.getSquare(1,1,0).getStatus();
+// 	// int g = w.getSquare(0,1,1).getStatus();
+// 	// int h = w.getSquare(1,1,1).getStatus();
+// 	// // assert(w.getSquare(1,1,1).isEmpty());
 
-//     cout << a << " " << b << " "<< c << " "<< d<< " "<< e<< " "<< f<< " "<< g<< " "<< h <<endl;
+//  //    cout << a << " " << b << " "<< c << " "<< d<< " "<< e<< " "<< f<< " "<< g<< " "<< h <<endl;
 // 	return 0;
 // }

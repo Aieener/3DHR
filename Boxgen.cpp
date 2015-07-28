@@ -5,8 +5,6 @@
 
 #include "Boxgen.h"
 
-using namespace std;
-
 Boxgen::Boxgen(int Lx,int Ly, int Lz,int Orien,int Len)
 {
 	lx = Lx;

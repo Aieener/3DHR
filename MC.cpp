@@ -22,23 +22,7 @@
 *
 */
 
-
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <string>
-#include "square.h"
-#include "cells.h"
 #include "MC.h"
-#include "hardrods.h"
-#include <cstdlib>
-#include <cmath>
-#include <time.h>
-#include "histogram.h"
-#include <array>
-#include "Boxgen.h"
-using namespace std;
-
 
 MC::MC(long int ST, int LEN, int N0, int N1, int N2, double Z)
 {
@@ -497,6 +481,7 @@ void MC::MCRUN(int init)
 	double size;
 	Cells s1(n0,n1,n2,EMPTY,length); 
 	Cells s2(n0,n1,n2,BOX, length);
+	Cells s3(n0,n1,n2,PLANE,length);
 	
 	srand(time(NULL));
 	long int i = 0;
@@ -536,6 +521,36 @@ void MC::MCRUN(int init)
 				au += length*length;
 				nu = au;
 				URodlist.insert(URodlist.end(),list[i].getBURodlist().begin(),list[i].getBURodlist().end());
+			}
+		}
+	}
+
+	else if (init == PLANE)
+	{
+		// merge the rodlists to be the BOX initial config
+		std::vector<Planegen> list;
+		list = s3.getPlanelist();
+		for(int i =0; i<list.size(); i++)
+		{
+			if(list[i].getOri() == 0)
+			{
+				av += double(n2*n0)/length;
+				nv = av;
+			    VRodlist.insert(VRodlist.end(),list[i].getPVRodlist().begin(),list[i].getPVRodlist().end());
+			}
+
+			else if (list[i].getOri() == 1)
+			{
+				ah += double(n1*n2)/length;
+				nh = ah;
+				HRodlist.insert(HRodlist.end(),list[i].getPHRodlist().begin(),list[i].getPHRodlist().end());
+			}
+
+			else if(list[i].getOri() == 2)
+			{
+				au += double(n0*n2)/length;
+				nu = au;
+				URodlist.insert(URodlist.end(),list[i].getPURodlist().begin(),list[i].getPURodlist().end());
 			}
 		}
 	}
@@ -589,6 +604,10 @@ void MC::MCRUN(int init)
 			{
 				Add(s2,prob,probav,probah,probau);
 			}
+			else if (init == PLANE)
+			{
+				Add(s3,prob,probav,probah,probau);
+			}
 			
 		}
 
@@ -602,10 +621,15 @@ void MC::MCRUN(int init)
 				{
 					Del(s1,prob,probdv, probdh,probdu);					
 				}
-				if (init == BOX)
+				else if (init == BOX)
 				{
 					Del(s2,prob,probdv, probdh,probdu);
 				}
+				else if (init == PLANE)
+				{
+					Del(s3,prob,probdv, probdh,probdu);
+				}
+
 			}			
 		}
 

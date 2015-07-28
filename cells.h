@@ -9,6 +9,7 @@
 #include "hardrods.h"
 #include "square.h"
 #include "Boxgen.h"
+#include "Planegen.h"
 using namespace std;
 
 // template< int N0, int N1, int N2> inline const int rten_idx(const int i0, const int i1, const int i2)
@@ -30,6 +31,7 @@ class Cells
 		int size;       // the total size of the grid
 		Square * arr;   // linearized array of Squares
 		std::vector<Boxgen> Boxlist; // the list storage the subboxes;
+		std::vector<Planegen> Planelist; // the list storage the subboxes;
 
 
 	public:
@@ -59,6 +61,7 @@ class Cells
 		int getSize() const;
 		int getIdx( int x, int y, int z) const;
 		const vector<Boxgen>& getBoxlist() const;
+		const vector<Planegen>& getPlanelist() const;
 
 
 

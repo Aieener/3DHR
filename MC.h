@@ -5,6 +5,9 @@
 #include "square.h"
 #include "cells.h"
 #include "hardrods.h"
+#include "Planegen.h"
+#include "histogram.h"
+#include "Planegen.h"
 #include <cstdlib>
 #include <cmath>
 #include <time.h>
@@ -43,7 +46,7 @@ class MC
     	// ******** Other Functianality *******//
         void Add(Cells &s,double &prob,double &probav, double &probah, double &probau);
         void Del(Cells &s,double &prob,double &probdv, double &probdh, double &probdu);
-    	void MCRUN(int init); 
+    	void MCRUN(int init);  //init stands for the initial configuration: enum INIT {EMPTY,BOX,PLANE};
         void Zvs_();
         
 
