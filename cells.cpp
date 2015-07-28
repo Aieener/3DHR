@@ -88,7 +88,7 @@ Cells::Cells(int X, int Y, int Z, int init,int length)
 			int Or;// Pick a random Orientation: in the case of X_plane, one can only choose from VER or UP
 			for (int i = 0; i < N0; i ++)
 			{				
-				Or = 2*rand()%2;// Or can be either 0 --> Ver or 2 --> UP;				
+				Or = 2*(rand()%2);// Or can be either 0 --> Ver or 2 --> UP;				
 				Planegen subplane(X_, i, N0, Or, length);
 				// Planegen(int Plane, int Lay, int L, int Orien,int Len); 
 				Planelist.push_back(subplane);
@@ -101,7 +101,7 @@ Cells::Cells(int X, int Y, int Z, int init,int length)
 			int Or;// Pick a random Orientation: in the case of Y_plane, one can only choose from HOR or UP
 			for (int i = 0; i< N1; i++)
 			{
-				Or = 1 + rand()%2;// Or can be either 1 --> HOR or 2 --> UP;
+				Or = rand()%2 +1;// Or can be either 1 --> HOR or 2 --> UP;
 				Planegen subplane(Y_, i, N1, Or, length);
 				Planelist.push_back(subplane);
 			}			
