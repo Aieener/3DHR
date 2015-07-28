@@ -28,9 +28,9 @@ class Boxgen
         std::vector<HR> BURodlist; // the list storage the Up Rods;
         int o; // the orientation of the box 
         /*
-        0 ---------------> filling up with Verticle Rods;
-        1 ---------------> filling up with Horizontal Rods;
-        2 ---------------> filling up with Up Rods;
+        0 ---------------> VER filling up with Verticle Rods;
+        1 ---------------> HOR filling up with Horizontal Rods;
+        2 ---------------> UP  filling up with Up Rods;
         3 and other nonsense # ---------------> empty box;
         */
     	int length; // length of the rod
@@ -40,6 +40,7 @@ class Boxgen
         //Constructer: initialize the oritation of our box
         //and then assighn the corresponding rod pos into a list.
         //when we add a subbox into our Box/Cells, we assign the rod list into the real Rodlist;
+        enum BOX_DIRECTION {VER,HOR,UP};
 
     	Boxgen(int Lx,int Ly, int Lz, int Orien,int Len); 
 

@@ -23,7 +23,7 @@ class MC
     	std::vector<HR> VRodlist; // the list storage the Vertical Rods;
         std::vector<HR> HRodlist; // the list storage the Horizantal Rods;
         std::vector<HR> URodlist; // the list storage the Up Rods;
-    	int r,c,h; // size of the box
+    	int n0,n1,n2; // size of the box
     	int length; // length of the rod
     	long int step;
     	double z; 
@@ -32,23 +32,13 @@ class MC
 
     public:
         enum INIT {EMPTY,BOX,PLANE};
-    	MC(long int ST, int LEN, int C, int R, int H, double Z); //(C==X, R==y,H==z)
+    	MC(long int ST, int LEN, int N0, int N1, int N2, double Z); //(x->n0, y->n1,z->n2)
 
     	// ********* Getters********//
 
         const vector<HR>& getVRodlist() const;
         const vector<HR>& getHRodlist() const;
         const vector<HR>& getURodlist() const;
-
-    	double getTho() const;
-    	double getQ() const;
-    	double getAaccp() const;
-    	double getDaccp() const;
-        double getNh() const;
-        double getNv() const;
-        // ******** Setters ******//
-        void setRodlist(std::vector<HR> RodL);
-
 
     	// ******** Other Functianality *******//
         void Add(Cells &s,double &prob,double &probav, double &probah, double &probau);

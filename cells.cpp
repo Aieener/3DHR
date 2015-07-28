@@ -57,7 +57,41 @@ Cells::Cells(int X, int Y, int Z, int init,int length)
 		{
 			arr[i] = Square(1);
 		}
+		//then: randomly filling up it with subboxes
 		srand (time(NULL));
+    	for(int i = 0; i < X/length; i++)
+    	{   
+			for ( int j = 0; j < Y/length; j++)
+			{
+				for (int k = 0; k < Z/length; k++)
+				{
+					int Or; //pick a random config of subbox to add into Box
+					Or = rand()%3; 
+					int l,m,n;
+					l = i*length;
+					m = j*length;
+					n = k*length;
+					Boxgen subox(l,m,n,Or,length);
+					Boxlist.push_back(subox);
+				}
+			}
+    	}
+    }
+
+    else if (init == PLANE)
+    {
+    	//initialize my cell with filling up with subplane config
+    	//firstly: initialize my cell with full config
+		for(int i = 0; i < size; i++)
+		{
+			arr[i] = Square(1);
+		}
+
+		//then: randomly filling up it with subplanes
+		srand (time(NULL));
+		int Pl; // pick an plane first
+		Pl = rand()%3;
+		
     	for(int i = 0; i < X/length; i++)
     	{   
 			for ( int j = 0; j < Y/length; j++)

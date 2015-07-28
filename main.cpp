@@ -24,7 +24,7 @@ int main()
 	// ======================= Plotting the final config ========================
 	vector<HR> VR,HR,UR;
 	MC m(1E7L,4,16,16,16,20000);
-	m.MCRUN(0);
+	m.MCRUN(1);
 	VR = m.getVRodlist();
 	HR = m.getHRodlist();
 	UR = m.getURodlist();

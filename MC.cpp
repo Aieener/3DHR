@@ -40,14 +40,14 @@
 using namespace std;
 
 
-MC::MC(long int ST, int LEN, int C, int R, int H, double Z)
+MC::MC(long int ST, int LEN, int N0, int N1, int N2, double Z)
 {
 	VRodlist.clear(); // the list storage the Vertical Rods;
     HRodlist.clear(); // the list storage the Horizantal Rods;
     URodlist.clear(); // the list storage the Up Rods;
-	r = R;
-	c = C;
-	h = H;
+	n0 = N0;
+	n1 = N1;
+	n2 = N2;
 	length = LEN;
 	step = ST;
 	z = Z;
@@ -70,54 +70,12 @@ const vector<HR>& MC::getURodlist() const
 }
 
 
-// double MC::getTho() const
-// {
-// 	double tho;	
-// 	tho = double(length*(av+ah-dv-dh))/double(r*c);
-// 	return tho;
-// }
-
-// double MC::getQ() const
-// {
-// 	double Q;	
-// 	Q = (nv - nh)/(nv + nh);
-// 	return Q;
-// }
-
-// double MC::getAaccp() const
-// {
-// 	double A;
-// 	A = z*(double(r*c))/(double(av+ah-dv-dh+1.0)*double(length));
-// 	return A;
-// }
-
-// double MC::getDaccp() const
-// {
-// 	double D;
-// 	D = (double(av+ah-dv-dh)*double(length))/(z*(double(r*c)));
-// 	return D;
-// }
-
-// double MC::getNh() const
-// {
-// 	return nh;
-// }
-// double MC::getNv() const
-// {
-// 	return nv;
-// }
-
-// void MC::setRodlist(std::vector<HR> RodL)
-// {
-// 	Rodlist = RodL;
-// }
-
 void MC::Add(Cells &s,double &prob,double &probav, double &probah, double &probau)
 {
 	int x,y,z,o; // pick a random position and orientation for the HR to be added;
-	x = rand()%c; // x range[0,c-1]
-	y = rand()%r; // y range[0,r-1]
-	z = rand()%h; // z range[0,h-1]
+	x = rand()%n0; // x range[0,n0-1]
+	y = rand()%n1; // y range[0,n1-1]
+	z = rand()%n2; // z range[0,n2-1]
 	o = rand()%3  ; // 0 range {0,1,2}
 
 	if(s.getSquare(x,y,z).isEmpty()) // if it's open, try to do Addition;
@@ -129,7 +87,7 @@ void MC::Add(Cells &s,double &prob,double &probav, double &probah, double &proba
 		{
 			if(prob <= probav)
 			{
-				if(y + length <= r)
+				if(y + length <= n1)
 				{
 					// the vertical case
 					int counter = 0;
@@ -165,7 +123,7 @@ void MC::Add(Cells &s,double &prob,double &probav, double &probah, double &proba
 				{ 
 					// the vertical case apply periodic BC
 					int counter2 = 0;
-					for (int j = 0; j <r-y-1; j++)
+					for (int j = 0; j <n1-y-1; j++)
 					{
 						// check if the vertical space is wide open
 						if(s.getSquare(x,y+j+1,z).isOccupied())
@@ -175,7 +133,7 @@ void MC::Add(Cells &s,double &prob,double &probav, double &probah, double &proba
 					}
 					if (counter2 == 0)
 					{
-						for (int i = 0; i < y+length-r; i++)
+						for (int i = 0; i < y+length-n1; i++)
 						{
 							// check if the vertical space is wide open
 							if(s.getSquare(x,i,z).isOccupied())
@@ -193,11 +151,11 @@ void MC::Add(Cells &s,double &prob,double &probav, double &probah, double &proba
 						av++;
 						nv++;// accumulate the # of ver rod;
 						
-						for (int j = 0; j <r-y; j++)
+						for (int j = 0; j <n1-y; j++)
 						{
 							s.getSquare(x,y+j,z).setStatus(1);
 						}
-						for (int i = 0; i < y+length-r; i++)
+						for (int i = 0; i < y+length-n1; i++)
 						{
 							s.getSquare(x,i,z).setStatus(1);
 						}							
@@ -211,7 +169,7 @@ void MC::Add(Cells &s,double &prob,double &probav, double &probah, double &proba
         //======================= Horizontal inside boundary ============================
 			if(prob <= probah)
 			{
-				if( x + length <= c)
+				if( x + length <= n0)
 				{
 					int counter3 = 0;
 					for (int j = 0; j< length ; j++)
@@ -244,7 +202,7 @@ void MC::Add(Cells &s,double &prob,double &probav, double &probah, double &proba
 				{ 		
 					// the Horizontal case apply periodic BC
 					int counter4 = 0;
-					for (int j = 0; j <c-x-1; j++)
+					for (int j = 0; j <n0-x-1; j++)
 					{
 						// check if the Horizontal space is wide open
 						if(s.getSquare(x+j+1,y,z).isOccupied())
@@ -255,7 +213,7 @@ void MC::Add(Cells &s,double &prob,double &probav, double &probah, double &proba
 					}
 					if (counter4 == 0)
 					{
-						for (int i = 0; i < x + length-c; i++)
+						for (int i = 0; i < x + length-n0; i++)
 						{
 							// check if the Horizontal space is wide open
 							if(s.getSquare(i,y,z).isOccupied())
@@ -273,11 +231,11 @@ void MC::Add(Cells &s,double &prob,double &probav, double &probah, double &proba
 						ah++;
 						nh++;// accumulate the # of hor rod;
 						
-						for (int j = 0; j <c-x; j++)
+						for (int j = 0; j <n0-x; j++)
 						{
 							s.getSquare(x+j,y,z).setStatus(1);
 						}
-						for (int i = 0; i < x+length-c; i++)
+						for (int i = 0; i < x+length-n0; i++)
 						{
 							s.getSquare(i,y,z).setStatus(1);
 						}							
@@ -287,10 +245,10 @@ void MC::Add(Cells &s,double &prob,double &probav, double &probah, double &proba
 		}
 		else 
 		{
-        //======================= Horizontal inside boundary ============================
+        //======================= Up inside boundary ============================
 			if(prob <= probau)
 			{
-				if( z + length <= h)
+				if( z + length <= n2)
 				{
 					int counter3 = 0;
 					for (int j = 0; j< length ; j++)
@@ -323,7 +281,7 @@ void MC::Add(Cells &s,double &prob,double &probav, double &probah, double &proba
 				{ 		
 					// the Horizontal case apply periodic BC
 					int counter4 = 0;
-					for (int j = 0; j <h-z-1; j++)
+					for (int j = 0; j <n2-z-1; j++)
 					{
 						// check if the Horizontal space is wide open
 						if(s.getSquare(x,y,z+j+1).isOccupied())
@@ -334,7 +292,7 @@ void MC::Add(Cells &s,double &prob,double &probav, double &probah, double &proba
 					}
 					if (counter4 == 0)
 					{
-						for (int i = 0; i < z + length-h; i++)
+						for (int i = 0; i < z + length-n2; i++)
 						{
 							// check if the Horizontal space is wide open
 							if(s.getSquare(x,y,i).isOccupied())
@@ -352,11 +310,11 @@ void MC::Add(Cells &s,double &prob,double &probav, double &probah, double &proba
 						au++;
 						nu++;// accumulate the # of hor rod;
 						
-						for (int j = 0; j <h-z; j++)
+						for (int j = 0; j <n2-z; j++)
 						{
 							s.getSquare(x,y,z+j).setStatus(1);
 						}
-						for (int i = 0; i < z+length-h; i++)
+						for (int i = 0; i < z+length-n2; i++)
 						{
 							s.getSquare(x,y,i).setStatus(1);
 						}							
@@ -390,7 +348,7 @@ void MC::Del(Cells &s,double &prob,double &probdv, double &probdh, double &probd
 			{
 			// --------------------- it's a vertical rod -----------------------
 			// ============== the case rod is inside the Boundary ==============
-				if(y + length <= r)
+				if(y + length <= n1)
 				{					
 					for(int i = 0; i<VRodlist[indx].getLength(); i++)
 					{
@@ -406,11 +364,11 @@ void MC::Del(Cells &s,double &prob,double &probdv, double &probdh, double &probd
 				else
 				{
 					// ==============the case apply periodic Boundary============
-					for (int j = 0; j <r-y; j++)
+					for (int j = 0; j <n1-y; j++)
 					{
 						s.getSquare(x,y+j,z).setStatus(0);
 					}
-					for (int i = 0; i < y+length-r; i++)
+					for (int i = 0; i < y+length-n1; i++)
 					{
 						s.getSquare(x,i,z).setStatus(0);
 					}
@@ -438,7 +396,7 @@ void MC::Del(Cells &s,double &prob,double &probdv, double &probdh, double &probd
 			if(prob <= probdh)
 			{
                 // ==============the case rod is inside the Boundary============
-				if(x + length <= c)
+				if(x + length <= n0)
 				{					
 					for(int i = 0; i<HRodlist[indx].getLength(); i++)
 					{
@@ -454,11 +412,11 @@ void MC::Del(Cells &s,double &prob,double &probdv, double &probdh, double &probd
 				else
 				{
 					// ==============the case apply periodic Boundary============
-					for (int j = 0; j <c-x; j++)
+					for (int j = 0; j <n0-x; j++)
 					{
 						s.getSquare(x+j,y,z).setStatus(0);
 					}
-					for (int i = 0; i < x+length-c; i++)
+					for (int i = 0; i < x+length-n0; i++)
 					{
 
 						s.getSquare(i,y,z).setStatus(0);
@@ -488,7 +446,7 @@ void MC::Del(Cells &s,double &prob,double &probdv, double &probdh, double &probd
 			if(prob <= probdu)
 			{
                 // ==============the case rod is inside the Boundary============
-				if(z + length <= h)
+				if(z + length <= n2)
 				{					
 					for(int i = 0; i<URodlist[indx].getLength(); i++)
 					{
@@ -504,11 +462,11 @@ void MC::Del(Cells &s,double &prob,double &probdv, double &probdh, double &probd
 				else
 				{
 					// ==============the case apply periodic Boundary============
-					for (int j = 0; j <h-z; j++)
+					for (int j = 0; j <n2-z; j++)
 					{
 						s.getSquare(x,y,z+j).setStatus(0);
 					}
-					for (int i = 0; i < z+length-h; i++)
+					for (int i = 0; i < z+length-n2; i++)
 					{
 
 						s.getSquare(x,y,i).setStatus(0);
@@ -537,14 +495,14 @@ void MC::MCRUN(int init)
 	double Q; // the fraction of hor and ver particle;
 	double tho; // the density 
 	double size;
-	Cells s1(c,r,h,0,length); 
-	Cells s2(c,r,h,1, length);
+	Cells s1(n0,n1,n2,EMPTY,length); 
+	Cells s2(n0,n1,n2,BOX, length);
 	
 	srand(time(NULL));
 	long int i = 0;
-	Histogram hisv(0, r*c*h/length, 1); // the histogram of nv
-	Histogram hish(0, r*c*h/length, 1); // the histogram of nh
-	Histogram hisu(0, r*c*h/length, 1); // the histogram of nu
+	Histogram hisv(0, n0*n1*n2/length, 1); // the histogram of nv
+	Histogram hish(0, n0*n1*n2/length, 1); // the histogram of nh
+	Histogram hisu(0, n0*n1*n2/length, 1); // the histogram of nu
 
 	// ****************** if start with an empty Box ***************************** //
 	//create my grid of empty cells;
@@ -580,8 +538,6 @@ void MC::MCRUN(int init)
 				URodlist.insert(URodlist.end(),list[i].getBURodlist().begin(),list[i].getBURodlist().end());
 			}
 		}
-		;
-		
 	}
 
 
@@ -598,15 +554,15 @@ void MC::MCRUN(int init)
 
 		// *****************define the probabilities ***********************************
 		prob = ((double) rand() / (RAND_MAX)); 
-		tho = double(length*size)/double(r*c*h);
+		tho = double(length*size)/double(n0*n1*n2);
 
-		aaccph = z*(double(r*c*h)/3.0)/(double(ah-dh+1.0)*double(length));
-		aaccpv = z*(double(r*c*h)/3.0)/(double(av-dv+1.0)*double(length));
-		aaccpu = z*(double(r*c*h)/3.0)/(double(au-du+1.0)*double(length));
+		aaccph = z*(double(n0*n1*n2)/3.0)/(double(ah-dh+1.0)*double(length));
+		aaccpv = z*(double(n0*n1*n2)/3.0)/(double(av-dv+1.0)*double(length));
+		aaccpu = z*(double(n0*n1*n2)/3.0)/(double(au-du+1.0)*double(length));
 
-		daccph = (double(ah-dh)*double(length))/(z*(double(r*c*h)/3.0));
-		daccpv = (double(av-dv)*double(length))/(z*(double(r*c*h)/3.0));
-		daccpu = (double(au-du)*double(length))/(z*(double(r*c*h)/3.0));
+		daccph = (double(ah-dh)*double(length))/(z*(double(n0*n1*n2)/3.0));
+		daccpv = (double(av-dv)*double(length))/(z*(double(n0*n1*n2)/3.0));
+		daccpu = (double(au-du)*double(length))/(z*(double(n0*n1*n2)/3.0));
 
 		probdh = min(1.0,daccph);
 		probdv = min(1.0,daccpv);

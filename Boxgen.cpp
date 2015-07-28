@@ -16,7 +16,7 @@ Boxgen::Boxgen(int Lx,int Ly, int Lz,int Orien,int Len)
 	length = Len;
 	int x,y,z;
 
-	if (o == 0) // Ver
+	if (o == VER) // Ver
 	{
 		for ( int i = 0; i < Len; i++)
 		{
@@ -32,7 +32,7 @@ Boxgen::Boxgen(int Lx,int Ly, int Lz,int Orien,int Len)
 	    BHRodlist.clear(); // the list storage the Horizantal Rods;
 	    BURodlist.clear(); // the list storage the Up Rods;
 	}
-	else if (o == 1) // Hor
+	else if (o == HOR) // Hor
 	{
 		for ( int i = 0; i < Len; i++)
 		{
@@ -48,7 +48,7 @@ Boxgen::Boxgen(int Lx,int Ly, int Lz,int Orien,int Len)
 		BVRodlist.clear(); // the list storage the Vertical Rods;
 	    BURodlist.clear(); // the list storage the Up Rods;
 	}
-	else if (o == 2) // Up
+	else if (o == UP) // Up
 	{
 		for ( int i = 0; i < Len; i++)
 		{

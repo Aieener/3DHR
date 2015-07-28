@@ -34,6 +34,8 @@ class Cells
 
 	public:
 		enum INIT {EMPTY,BOX,PLANE};
+		enum PLANE_DIRECTION {X_,Y_,Z_};
+		enum BOX_DIRECTION {VER,HOR,UP};
 		Cells();
 
 		/*
