@@ -27,36 +27,37 @@ with open("dataplot.dat", "r") as file:
 
 fig1 = plt.figure()
 ax1 = fig1.add_subplot(111)
-
-ax1.set_title("Runs VS N1")    
+ax1.set_title("Runs VS Numbers of Vertical Rods")    
 ax1.set_xlabel('Runs')
-ax1.set_ylabel('N1')
-ax1.plot(Run,N1, c='b', label='the data')
+ax1.set_ylabel('Numbers of Vertical Rods')
+ax1.plot(Run,N1, c='b', label='Vertical Rods')
 title = 'Runs_VS_N1.png'
+leg = ax1.legend()
 fig1.savefig(title, dpi=180, bbox_inches='tight')
 
 fig2 = plt.figure()
 ax2 = fig2.add_subplot(111)
-
-ax2.set_title("Runs VS N2")    
+ax2.set_title("Runs VS Numbers of Horizontal Rods")    
 ax2.set_xlabel('Runs')
-ax2.set_ylabel('N2')
-ax2.plot(Run,N2, c='r', label='the data')
+ax2.set_ylabel('Numbers of Horizontal Rods')
+ax2.plot(Run,N2, c='r', label='Horizontal Rods')
 title = 'Runs_VS_N2.png'
+leg = ax2.legend()
 fig2.savefig(title, dpi=180, bbox_inches='tight')
 
 
 fig3 = plt.figure()
 ax3 = fig3.add_subplot(111)
 
-ax3.set_title("Runs VS N3")    
+ax3.set_title("Runs VS Numbers of Up Rods")    
 ax3.set_xlabel('Runs')
-ax3.set_ylabel('N3')
-ax3.plot(Run,N3, c='g', label='the data')
+ax3.set_ylabel('Numbers of Up Rods')
+ax3.plot(Run,N3, c='g', label='Up Rods')
 title = 'Runs_VS_N3.png'
+leg = ax3.legend()
 fig3.savefig(title, dpi=180, bbox_inches='tight')
 
 
 
-# leg = ax1.legend()
+
 # plt.show()

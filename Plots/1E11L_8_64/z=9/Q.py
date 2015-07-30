@@ -39,8 +39,12 @@ def CalcQ(Excess):
 def HistoQ(D):
 	fig = plt.figure()
 	ax = fig.add_subplot(111)
+	ax.set_title("Distribution for Q")
+	ax.set_xlabel('Q')
+	ax.set_ylabel('Frequency')
 	numBins = 100
-	ax.hist(D[0],numBins,color = 'purple', alpha = 0.8)
+	ax.hist(D[0],numBins,color = 'purple', alpha = 0.8, label ='Q')
+	leg = ax.legend()
 	title = 'HitsQ3d.png'
 	fig.savefig(title, dpi=180, bbox_inches='tight')
 	
@@ -49,7 +53,8 @@ def HistoQ(D):
 	ax2.set_title("Runs VS Q")    
 	ax2.set_xlabel('Runs')
 	ax2.set_ylabel('Q')
-	ax2.plot(D[1],D[0], c='purple', label='the data')
+	ax2.plot(D[1],D[0], c='purple', label='Q')
+	leg = ax2.legend()
 	title = 'Runs_VS_Q.png'
 	fig2.savefig(title, dpi=180, bbox_inches='tight')
 
