@@ -263,9 +263,9 @@ def Draw3D(plane, layer, K):
 
                 elif plane == "y":
                     if wy == lay:
-                        xpos2.append(wx);
-                        ypos2.append(wy);
-                        zpos2.append(wz);
+                        xpos3.append(wx);
+                        ypos3.append(wy);
+                        zpos3.append(wz);
                         dx3.append(1);
                         dy3.append(1)
                         dz3.append(K);
@@ -489,9 +489,9 @@ def Draw2D(plane, layer, K):
 
             elif plane == "y":
                 if wy == lay:
-                    xpos2.append(wx);
-                    ypos2.append(wy);
-                    zpos2.append(wz);
+                    xpos3.append(wx);
+                    ypos3.append(wy);
+                    zpos3.append(wz);
                     dx3.append(1);
                     dy3.append(1)
                     dz3.append(K);

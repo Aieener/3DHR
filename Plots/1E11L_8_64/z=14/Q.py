@@ -11,10 +11,12 @@ import matplotlib.pyplot as plt
 #Here Q is defined as Q = (N3 -(N2+N1)/2) / N1 + N2 + N3 where N3 is for the excessing species
 def CalcQ(Excess):
 	Q = []
+	Run = []
 	with open("dataplot.dat","r") as file:
 		# i = 0
 		for line in file:
 			words = line.split()
+			r = float(words[0]) # Runs
 			N1 = float(words[2]) # Ver
 			N2 = float(words[3]) # Hor
 			N3 = float(words[4]) # Up
@@ -24,23 +26,32 @@ def CalcQ(Excess):
 				value = (N2 -(N3+N1)/2) / (N1 + N2 + N3) 
 			elif Excess == "N1":
 				value = (N1 -(N2+N3)/2) / (N1 + N2 + N3) 
+			Run.append(r);
 			Q.append(value);
 			# print Q[i]
 			# i = i + 1
 	np.savetxt('Q.txt', Q, delimiter=',') 
-	return Q
+	return [Q,Run]
 
 # CalcQ("N3")
 
 #HistoQ generates the histogram for our sets of Q
-def HistoQ(Q):
+def HistoQ(D):
 	fig = plt.figure()
 	ax = fig.add_subplot(111)
 	numBins = 100
-	ax.hist(Q,numBins,color = 'green', alpha = 0.8)
+	ax.hist(D[0],numBins,color = 'purple', alpha = 0.8)
 	title = 'HitsQ3d.png'
 	fig.savefig(title, dpi=180, bbox_inches='tight')
-	plt.show()
+	
+	fig2 = plt.figure()
+	ax2 = fig2.add_subplot(111)
+	ax2.set_title("Runs VS Q")    
+	ax2.set_xlabel('Runs')
+	ax2.set_ylabel('Q')
+	ax2.plot(D[1],D[0], c='purple', label='the data')
+	title = 'Runs_VS_Q.png'
+	fig2.savefig(title, dpi=180, bbox_inches='tight')
 
 def main():
 	print "#===============================#"
