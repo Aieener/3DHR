@@ -2,7 +2,7 @@
 # 2015-July-30
 # Plot NvsRun
 # perl -i.bak -pe "s/\t/' 'x(8-pos()%8)/eg" *.py
-# echo z=5/ z=9/ z=10/ z=11/ z=14/ z=19/ z=20/ z=21/ | xargs -n 1 cp NvsR.py
+# echo z=5/ z=9/ z=10/ z=11/ z=14/ z=19/ z=20/ z=21/ | xargs -n 1 cp QvsR.py
 
 
 import numpy as np
