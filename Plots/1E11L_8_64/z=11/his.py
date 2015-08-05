@@ -11,15 +11,19 @@ def his():
 	N1 = [] # Ver
 	N2 = [] # Hor
 	N3 = [] # Up
+	N = [] # Total number
 	with open("dataplot.dat","r") as file:
 		for line in file:
 			words = line.split()
+
 			n1 = float(words[2]) # Ver
 			n2 = float(words[3]) # Hor
 			n3 = float(words[4]) # Up
+			ntot = n1+n2+n3
 			N1.append(n1);
 			N2.append(n2);
 			N3.append(n3);
+			N.append(ntot);
 
 
 
@@ -27,10 +31,12 @@ def his():
 	fig2 = plt.figure()
 	fig3 = plt.figure()
 	fig4 = plt.figure()
+	fig5 = plt.figure()
 	ax1 = fig1.add_subplot(111)
 	ax2 = fig2.add_subplot(111)
 	ax3 = fig3.add_subplot(111)
 	ax4 = fig4.add_subplot(111)
+	ax5 = fig5.add_subplot(111)
 	numBins = 100
 	# if N == "N1":
 	# 	ax.hist(N1,numBins,color = 'blue', alpha = 0.8)
@@ -84,6 +90,14 @@ def his():
 	leg = ax4.legend()
 	title = 'All_#distribution.png'
 	fig4.savefig(title, dpi=180, bbox_inches='tight')
+
+	ax5.set_title("Total Number Distribution")
+	ax5.set_xlabel('Numbers')
+	ax5.set_ylabel('Frequency')
+	ax5.hist(N,numBins,color = 'yellow', alpha = 0.8, label = 'Total Rods')
+	leg = ax5.legend()
+	title = 'Ntot_#distribution.png'
+	fig5.savefig(title, dpi=180, bbox_inches='tight')
 
 
 

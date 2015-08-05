@@ -602,12 +602,26 @@ def main():
                 Draw2D(p, l, K)
                 again = "a"
                 while (again != "n"):
-                    again = raw_input("Do you want to checkout other layers on this plane? y/n\n")
+                    again = raw_input("Do you want to check out other layers on this plane? y/n\n")
                     if again == "y":
                         l = raw_input("And on which layer this time?\n")
                         Draw2D(p, l, K)
                     else:
-                        again = "n"
+                        again = "n"      
+                while (p != "n"):
+                    p = raw_input("Do you want to check out other planes? \n"
+                                  "type 'x','y','z' for Yes or 'n' for No\n")
+                    if p != "n":
+                        l = raw_input('And on which layer?\n')
+                        Draw2D(p, l, K)
+                        again = "a"
+                        while (again != "n"):
+                            again = raw_input("Do you want to check out other layers on this plane? y/n\n")
+                            if again == "y":
+                                l = raw_input("And on which layer this time?\n")
+                                Draw2D(p, l, K)
+                            else:
+                                again = "n"
                 check = False
             else:
                 print "I don't understand what do you mean\n"
