@@ -5,6 +5,7 @@
 import numpy as np
 import matplotlib.mlab as mlab
 import matplotlib.pyplot as plt
+import math
 
 
 def his():
@@ -12,6 +13,7 @@ def his():
 	N2 = [] # Hor
 	N3 = [] # Up
 	N = [] # Total number
+
 	with open("dataplot.dat","r") as file:
 		for line in file:
 			words = line.split()
@@ -26,17 +28,18 @@ def his():
 			N.append(ntot);
 
 
-
 	fig1 = plt.figure()
 	fig2 = plt.figure()
 	fig3 = plt.figure()
 	fig4 = plt.figure()
 	fig5 = plt.figure()
+	fig6 = plt.figure()
 	ax1 = fig1.add_subplot(111)
 	ax2 = fig2.add_subplot(111)
 	ax3 = fig3.add_subplot(111)
 	ax4 = fig4.add_subplot(111)
 	ax5 = fig5.add_subplot(111)
+	ax6 = fig6.add_subplot(111)
 	numBins = 100
 	# if N == "N1":
 	# 	ax.hist(N1,numBins,color = 'blue', alpha = 0.8)
@@ -98,6 +101,14 @@ def his():
 	leg = ax5.legend()
 	title = 'Ntot_#distribution.png'
 	fig5.savefig(title, dpi=180, bbox_inches='tight')
+
+	ax6.set_title("Log (Total Number Distribution)")
+	ax6.set_xlabel('Numbers')
+	ax6.set_ylabel('Log(Frequency)')
+	ax6.hist(N,numBins,color = 'pink', alpha = 0.8, label = 'Log (Total Rods)',log =True)
+	leg = ax6.legend()
+	title = 'LogNtot_#distribution.png'
+	fig6.savefig(title, dpi=180, bbox_inches='tight')
 
 
 

@@ -2,7 +2,7 @@
 # 2015-July-30
 # Plot NvsRun
 # perl -i.bak -pe "s/\t/' 'x(8-pos()%8)/eg" *.py
-# echo z=5/ z=9/ z=10/ z=11/ z=14/ z=19/ z=20/ z=21/ | xargs -n 1 cp QvsR.py
+# echo z=5/ z=9/ z=9.1/ z=9.3/ z=9.4/ z=9.45/ z=9.47/ z=9.5/ z=9.6/ z=9.65/ z=10/ z=11/ z=14/ z=19/ z=20/ z=21/ z=22/ z=23/ z=25/ z=30/ z=50/ z=60/ z=100| xargs -n 1 cp QvsR.py
 
 
 import numpy as np
@@ -60,11 +60,11 @@ leg = ax3.legend()
 fig3.savefig(title, dpi=180, bbox_inches='tight')
 
 fig4 = plt.figure()
-ax4 = fig1.add_subplot(111)
+ax4 = fig4.add_subplot(111)
 ax4.set_title("Runs VS Total Numbers of Rods")    
 ax4.set_xlabel('Runs')
 ax4.set_ylabel('Total Numbers of Rods')
-ax4.plot(Run,N1, c='y', label='Total Numbers')
+ax4.plot(Run,N, c='y', label='Total Numbers')
 title = 'Runs_VS_Ntot.png'
 leg = ax4.legend()
 fig4.savefig(title, dpi=180, bbox_inches='tight')
