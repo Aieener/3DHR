@@ -44,8 +44,8 @@ class MC
         const vector<HR>& getURodlist() const;
 
     	// ******** Other Functianality *******//
-        void Add(Cells &s,double &prob,double &probav, double &probah, double &probau);
-        void Del(Cells &s,double &prob,double &probdv, double &probdh, double &probdu);
+        void Add(Cells &s,double &prob,double &proba);
+        void Del(Cells &s,double &prob,double &probd,double &size);
     	void MCRUN(int init);  //init stands for the initial configuration: enum INIT {EMPTY,BOX,PLANE};
         void Zvs_();
         
