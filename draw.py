@@ -356,7 +356,8 @@ def Draw2D(plane, layer, K):
                     (ypos[y], zpos[y]),
                     dy[y],
                     dz[y],
-                    facecolor="blue"
+                    facecolor="blue",
+                    linewidth=0.3
                 )
             )
 
@@ -368,7 +369,8 @@ def Draw2D(plane, layer, K):
                     (zpos[y], xpos[y]),
                     dz[y],
                     dx[y],
-                    facecolor="blue"
+                    facecolor="blue",
+                    linewidth=0.3
                 )
             )
 
@@ -380,7 +382,8 @@ def Draw2D(plane, layer, K):
                     (xpos[y], ypos[y]),
                     dx[y],
                     dy[y],
-                    facecolor="blue"
+                    facecolor="blue",
+                    linewidth=0.3
                 )
             )
     # ================================ Draw Hor Rods ===========================
@@ -436,7 +439,8 @@ def Draw2D(plane, layer, K):
                     (ypos2[x], zpos2[x]),
                     dy2[x],
                     dz2[x],
-                    facecolor="red"
+                    facecolor="red",
+                    linewidth=0.3
                 )
             )
 
@@ -448,7 +452,8 @@ def Draw2D(plane, layer, K):
                     (zpos2[x], xpos2[x]),
                     dz2[x],
                     dx2[x],
-                    facecolor="red"
+                    facecolor="red",
+                    linewidth=0.3
                 )
             )
 
@@ -460,7 +465,8 @@ def Draw2D(plane, layer, K):
                     (xpos2[x], ypos2[x]),
                     dx2[x],
                     dy2[x],
-                    facecolor="red"
+                    facecolor="red",
+                    linewidth=0.3
                 )
             )
 
@@ -518,7 +524,8 @@ def Draw2D(plane, layer, K):
                     (ypos3[z], zpos3[z]),
                     dy3[z],
                     dz3[z],
-                    facecolor="green"
+                    facecolor="green",
+                    linewidth=0.3
                 )
             )
 
@@ -530,7 +537,8 @@ def Draw2D(plane, layer, K):
                     (zpos3[z], xpos3[z]),
                     dz3[z],
                     dx3[z],
-                    facecolor="green"
+                    facecolor="green",
+                    linewidth=0.3
                 )
             )
 
@@ -542,13 +550,14 @@ def Draw2D(plane, layer, K):
                     (xpos3[z], ypos3[z]),
                     dx3[z],
                     dy3[z],
-                    facecolor="green"
+                    facecolor="green",
+                    linewidth=0.3
                 )
             )
 
     plt.axis('equal')
     title = '2dplot' + '_' + plane + '_' + layer + '.png'
-    fig.savefig(title, dpi=180, bbox_inches='tight')
+    fig.savefig(title, dpi=300, bbox_inches='tight')
     # plt.show()
 
 
