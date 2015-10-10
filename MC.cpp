@@ -6,11 +6,8 @@
 * *************************** MC implementation ********************************
 * This simulation follows grand canonical ensemble.
 * In such simulation, Only Energy and N of particles fluctuate, we accomplish EF by
-* using both add/del and displacement moves, while NF by particle addition and 
-* deletion moves;
+* using only add/del moves, and so does NF;
 * ******************************************************************************
-* The Acceptance relation for Displacement is given by: (Page 130 -- Understanding 
-* Molecular Simulations)
 *
 * The Acceptance relation for Addition is given by: (Page 12 --M.S.Shell 2012)
 *  -- Pad = min [1,((r*c/2)/(N + 1)) * exp{-beta*miu}]
