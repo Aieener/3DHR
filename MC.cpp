@@ -10,10 +10,10 @@
 * ******************************************************************************
 *
 * The Acceptance relation for Addition is given by: (Page 12 --M.S.Shell 2012)
-*  -- Pad = min [1,((r*c/2)/(N + 1)) * exp{-beta*miu}]
+*  -- Pad = min [1,((n0*n1*n2)/(length*(N + 1))) * exp{-beta*miu}]
 *
 * The Acceptance relation for Deletion is given by:
-*  -- Pde = min [1,(N/(r*c/2))*exp{beta*miu}]
+*  -- Pde = min [1,(N*length/(n0*n1*n2))*exp{beta*miu}]
 *
 * where miu is the chemical potential
 *
@@ -26,13 +26,14 @@ MC::MC(long int ST, int LEN, int N0, int N1, int N2, double Z)
 	VRodlist.clear(); // the list storage the Vertical Rods;
     HRodlist.clear(); // the list storage the Horizantal Rods;
     URodlist.clear(); // the list storage the Up Rods;
-	n0 = N0;
-	n1 = N1;
-	n2 = N2;
-	length = LEN;
-	step = ST;
-	z = Z;
-	nh=nv=nu=dh=dv=du=ah=av=au=0;
+	n0 = N0;          // length of the box
+	n1 = N1;          // weight of the box
+	n2 = N2;          // hight  of the box
+	length = LEN;     // length of rod
+	step = ST;        // MC steps
+	z = Z;            // activity z = exp(beta*miu)
+	nh=nv=nu=dh=dv=du=ah=av=au=0;            // initialize all my number count into 0; ie. nh stands for number of horizontal rods
+	                                         // dh stands for the times of deletion for for horizontal rods and ah is for addition.
 }
 
 const vector<HR>& MC::getVRodlist() const
@@ -63,9 +64,9 @@ void MC::Add(Cells &s,double &prob,double &proba)
 	{
 		HR rod(x,y,z,length,o);
 
-		//======================== Vertical ===============================
 		if(o == 0)
 		{
+		//======================== Vertical ===============================
 			// the vertical case
 			int counter = 0;
 
