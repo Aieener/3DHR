@@ -5,6 +5,16 @@
 #include "MC.h"
 using namespace std;
 
+/**************************** Data Analysis ***********************************
+*  After finish the MC simulation, we can use python to do the data analysis:
+*  1.we can plot the final config by running draw.py :  python draw.py
+*  2.we obtain the N distribution historgams by running his.py:  python his.py
+*  3.we obtain the N vs Run plots by running NvsR.py: python NvsR.py
+*  4.we obtain the data for the mean values by running mean.py: python mean.py
+*******************************************************************************
+*/
+
+
 int main()
 {
 	stringstream t;
