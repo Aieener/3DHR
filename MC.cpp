@@ -375,6 +375,8 @@ void MC::MCRUN(int init)
 		{
 			if (size != 0) // make sure there are rods to be del;
 			{
+				// cout <<probd<<endl;
+
 				//Do deletion;
 				if (init == EMPTY)
 				{

@@ -1,10 +1,13 @@
 #Analysis # distribution for the 3-D Rods
 #Author: Yuding Ai
-#Date: 2015 July 28
+#Date: 2015 July 28++
 
 import numpy as np
 import matplotlib.mlab as mlab
 import matplotlib.pyplot as plt
+from matplotlib import rc
+rc('font',**{'family':'serif','serif':['Palatino']})
+rc('text', usetex=True)
 
 
 def his():

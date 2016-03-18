@@ -22,7 +22,7 @@ int main()
 
 	// ======================= Plotting the final config ========================
 	vector<HR> VR,HR,UR;
-	MC m(1E11L,8,64,64,64,9.35);
+	MC m(1E9L,12,64,64,64,2.96);
 	m.MCRUN(0);
 	VR = m.getVRodlist();
 	HR = m.getHRodlist();

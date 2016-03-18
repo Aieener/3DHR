@@ -1,7 +1,7 @@
 /*
 * hardrods.h
-* 2-D lattice gas
-* Author: Yuding Ai & Eelco Empting
+* 3-D  rod
+* Author: Yuding Ai 
 * Date: 2015.06.08
 */
 #ifndef HARDRODS_H
